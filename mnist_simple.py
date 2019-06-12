@@ -58,13 +58,15 @@ def main():
 	else:
 		epochs, max_iter = 5, 5
 	optimizer = BayesianOptimization(f=f_opt,  # objective function
-				 domain=opt_BO,
-				 model_type='GP',
-				 acquisition_type='EI',
-				 normalize_Y=True,
-				 acquisition_jitter=0.05,  # positive value to make acquisition more explorative
-				 exact_feval=True,  # whether the outputs are exact
-				 maximize=False)
+					 domain=opt_BO,
+					 model_type='GP',
+					 acquisition_type='EI',
+					 normalize_Y=True,
+					 acquisition_jitter=0.05,  # positive value to make acquisition more explorative
+					 exact_feval=True,  # whether the outputs are exact
+					 maximize=False
+					)
+
 	optimizer.run_optimization(max_iter=max_iter)  # 5 initial exploratory points + max_iter
 	if plot:
 		optimizer.plot_acquisition()  # plots y normalized (i.e. deviates) only in 1d or 2d
