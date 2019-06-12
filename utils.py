@@ -5,9 +5,10 @@ def print_params(p, opt_BO):
 
 def call_counter(func):
 	'''Call counter decorator'''
-    def helper(*args, **kwargs):
-        helper.calls += 1
-        return func(*args, **kwargs)
-    helper.calls = 0
-    helper.__name__= func.__name__
-    return helper
+	def helper(*args, **kwargs):
+		helper.calls += 1
+		return func(*args, **kwargs)
+
+	helper.calls = 0
+	helper.__name__ = func.__name__
+	return helper
