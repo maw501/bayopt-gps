@@ -43,13 +43,13 @@ plot = True
 loss_func = F.nll_loss
 
 opt_BO = [{'name': 'learning_rate', 'type': 'continuous', 'domain': (0.05, 0.25)},
-		  {'name': 'momentum', 'type': 'continuous', 'domain': (0.8, 0.9)},
-		  {'name': 'num_lay', 'type': 'discrete', 'domain': range(1, 4)},
-		  {'name': 'num_c', 'type': 'discrete', 'domain': range(8, 22, 2)},
-		  {'name': 'num_fc', 'type': 'discrete', 'domain': range(10, 105, 5)},
-		  {'name': 'dropout', 'type': 'discrete', 'domain': np.linspace(0, 0.4, 11)},
-		  {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)}
-		  ]
+	  {'name': 'momentum', 'type': 'continuous', 'domain': (0.8, 0.9)},
+	  {'name': 'num_lay', 'type': 'discrete', 'domain': range(1, 4)},
+	  {'name': 'num_c', 'type': 'discrete', 'domain': range(8, 22, 2)},
+	  {'name': 'num_fc', 'type': 'discrete', 'domain': range(10, 105, 5)},
+	  {'name': 'dropout', 'type': 'discrete', 'domain': np.linspace(0, 0.4, 11)},
+	  {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)}
+	  ]
 
 def main():
 	global epochs
@@ -58,13 +58,13 @@ def main():
 	else:
 		epochs, max_iter = 5, 5
 	optimizer = BayesianOptimization(f=f_opt,  # objective function
-				 domain=opt_BO,
-				 model_type='GP',
-				 acquisition_type='EI',
-				 normalize_Y=True,
-				 acquisition_jitter=0.05,  # positive value to make acquisition more explorative
-				 exact_feval=True,  # whether the outputs are exact
-				 maximize=False)
+						 domain=opt_BO,
+						 model_type='GP',
+						 acquisition_type='EI',
+						 normalize_Y=True,
+						 acquisition_jitter=0.05,  # positive value to make acquisition more explorative
+						 exact_feval=True,  # whether the outputs are exact
+						 maximize=False)
 	optimizer.run_optimization(max_iter=max_iter)  # 5 initial exploratory points + max_iter
 	if plot:
 		optimizer.plot_acquisition()  # plots y normalized (i.e. deviates) only in 1d or 2d
