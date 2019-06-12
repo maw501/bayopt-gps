@@ -48,6 +48,8 @@ Then clone the repo and run the example which takes 2 arguments:
 1. number of epochs
 2. number of iterations to run the Bayesian optimization for
 
+Running the below example will automatically download the MNIST dataset.
+
 ```
 git clone https://github.com/maw501/bayopt-gps.git
 cd bayopt-gps
@@ -61,3 +63,9 @@ Note: 5 initial iterations of the Bayesian optimization are run for exploratory 
 * Saving and loading models based on best results
 * Loading previous results and continuing
 * Adding extra parameters after some initial training
+* Printing training loss
+* Analysis of different kernels
+* Analysis of changing exploration and exploitation parameter
+* Run on CIFAR-10
+* Add references to main papers
+* Blog post talking through main findings
