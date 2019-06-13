@@ -43,20 +43,15 @@ all can be installed via conda.
 
 ### Running the example
 
-Then clone the repo and run the example which takes 2 arguments:
-
-1. number of epochs
-2. number of iterations to run the Bayesian optimization for
-
-Running the below example will automatically download the MNIST dataset.
+Then clone the repo and run the example which will automatically download the MNIST dataset.
 
 ```
 git clone https://github.com/maw501/bayopt-gps.git
 cd bayopt-gps
-python3 mnist_simple 5 5
+python3 main.py
 ```
 
-Note: 5 initial iterations of the Bayesian optimization are run for exploratory purposes on top of those specified.
+Parameter settings are controlled in config.py
 
 ## TODO
 
