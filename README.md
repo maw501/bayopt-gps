@@ -1,6 +1,6 @@
-<h1 align="center">Bayesian optimization of NNs using GPyOpt and PyTorch</h1>
+<h2 align="center">Bayesian optimization of NNs using GPyOpt and PyTorch</h2>
 
-<div align="left">
+<div align="center">
 
   <!--Python version -->
   <a href="https://www.python.org/downloads/release/python-360/">
