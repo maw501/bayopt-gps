@@ -1,4 +1,4 @@
-<h1 align="center">bayopt-gps</h1>
+<h1 align="center">Bayesian optimization of NNs using GPyOpt and PyTorch</h1>
 
 <div align="left">
 
