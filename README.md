@@ -31,6 +31,8 @@
 
 A simple but practical example of how to use Bayesian optimization with Gaussian processes to tune a neural network using PyTorch and GPyOpt.
 
+Notebooks are provided showing more advanced functionality.
+
 ## Getting started
 ### Requirements
 
@@ -48,19 +50,7 @@ Then clone the repo and run the example which will automatically download the MN
 ```
 git clone https://github.com/maw501/bayopt-gps.git
 cd bayopt-gps
-python3 main.py
+python3 mnist_example.py
 ```
 
 Parameter settings are controlled in config.py
-
-## TODO
-
-* Saving and loading models based on best results
-* Loading previous results and continuing
-* Adding extra parameters after some initial training
-* Printing training loss
-* Analysis of different kernels
-* Analysis of changing exploration and exploitation parameter
-* Run on CIFAR-10
-* Add references to main papers
-* Blog post talking through main findings

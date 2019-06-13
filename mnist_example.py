@@ -1,4 +1,5 @@
 from GPyOpt.methods import BayesianOptimization
+import GPyOpt
 import data_prep as dp
 import models as m
 import train
@@ -10,6 +11,7 @@ def main():
 	utils.setup_folders()
 	if config.cleanup_models_dir: utils.clean_folder('models/')  # delete models from previous runs
 	# GPyOpt function call:
+	model = GPyOpt.models.GPModel(optimize_restarts=5, verbose=True)
 	optimizer = BayesianOptimization(f=config.opt_func,  # objective function
 					 domain=config.opt_BO,
 					 model_type='GP',
@@ -17,7 +19,7 @@ def main():
 					 normalize_Y=True,
 					 acquisition_jitter=0.05,  # positive value to make acquisition more explorative
 					 exact_feval=True,  # whether the outputs are exact
-					 maximize=False
+					 maximize=False,
 					)
 	optimizer.run_optimization(max_iter=config.max_iter)  # 5 initial exploratory points + max_iter
 	# Post-run printing and plotting:
