@@ -4,7 +4,7 @@ def print_params(p, opt_BO):
 		  f'{bo_names[3]}: {p[3]:.4f} | {bo_names[4]}: {p[4]:.4f} | {bo_names[5]}: {p[5]:.4f}')
 
 def call_counter(func):
-	'''Call counter decorator'''
+	"""Call counter decorator"""
 	def helper(*args, **kwargs):
 		helper.calls += 1
 		return func(*args, **kwargs)

@@ -5,7 +5,7 @@ from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
 class ConvBnRelu(nn.Module):
-	'''Re-usable building block implementing 2d conv layer with batch-norm and relu activation'''
+	"""Re-usable building block implementing 2d conv layer with batch-norm and relu activation"""
 	def __init__(self, in_channels, out_channels):
 		super().__init__()
 		self.conv = nn.Sequential(nn.Conv2d(in_channels, out_channels, kernel_size=5),  # reduces feature map by 4
@@ -17,7 +17,7 @@ class ConvBnRelu(nn.Module):
 		return self.conv(x)
 
 class Mnist_CNN(nn.Module):
-	'''Simple CNN for MNIST data of size 28x28'''
+	"""Simple CNN for MNIST data of size 28x28"""
 	def __init__(self, n_lay=2, n_c=16, n_fc=25, dropout=0.1):
 		super().__init__()
 		self.h, self.w = 28, 28
@@ -39,7 +39,7 @@ class Mnist_CNN(nn.Module):
 		return F.log_softmax(x, dim=1)
 
 class Net(nn.Module):
-	'''NN from PyTorch MNIST tutorial'''
+	"""NN from PyTorch MNIST tutorial"""
 	def __init__(self):
 		super(Net, self).__init__()
 		self.conv1 = nn.Conv2d(1, 20, 5, 1)

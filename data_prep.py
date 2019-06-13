@@ -41,6 +41,7 @@ def preprocess(x, y):
 	return x.view(-1, 1, MNIST_H, MNIST_W).to(dev), y.to(dev)
 
 class WrappedDataLoader:
+	"""Generator applying pre-processing function to a mini-batch as it is yielded"""
 	def __init__(self, dl, func):
 		self.dl = dl
 		self.func = func
