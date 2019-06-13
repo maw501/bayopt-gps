@@ -3,10 +3,11 @@ import torch.nn.functional as F
 
 class ConvBnRelu(nn.Module):
 	"""Re-usable building block implementing 2d conv layer with batch-norm and relu activation"""
-	def __init__(self, in_channels, out_channels):
+	def __init__(self, in_channels, out_channels, p):
 		super().__init__()
 		self.conv = nn.Sequential(nn.Conv2d(in_channels, out_channels, kernel_size=5),  # reduces feature map by 4
 								  nn.BatchNorm2d(out_channels),
+								  nn.Dropout2d(p=p, inplace=True),
 								  nn.ReLU(inplace=True)
 								  )
 
@@ -22,8 +23,8 @@ class Mnist_CNN(nn.Module):
 		self.h, self.w = 28, 28
 		self.out_hw = self.h - (n_lay + 1) * 4
 		self.out_c = n_c * (2 ** n_lay)
-		self.convs = nn.ModuleList([ConvBnRelu(1, n_c)])
-		self.convs.extend([ConvBnRelu((2 ** (i - 1)) * n_c, (2 ** i) * n_c) for i in range(1, n_lay + 1)])
+		self.convs = nn.ModuleList([ConvBnRelu(1, n_c, dropout)])
+		self.convs.extend([ConvBnRelu((2 ** (i - 1)) * n_c, (2 ** i) * n_c, dropout) for i in range(1, n_lay + 1)])
 		self.fc1 = nn.Linear(self.out_c * (self.out_hw ** 2), n_fc * 2)
 		self.fc2 = nn.Linear(n_fc * 2, 10)
 
@@ -40,7 +41,7 @@ class Mnist_CNN(nn.Module):
 class Net(nn.Module):
 	"""NN from PyTorch MNIST tutorial"""
 	def __init__(self):
-		super(Net, self).__init__()
+		super().__init__()
 		self.conv1 = nn.Conv2d(1, 20, 5, 1)
 		self.conv2 = nn.Conv2d(20, 50, 5, 1)
 		self.fc1 = nn.Linear(4 * 4 * 50, 500)

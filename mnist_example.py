@@ -3,13 +3,12 @@ import GPyOpt
 import torch
 import torch.nn.functional as F
 from torch import optim
-gt import numpy as np
+import numpy as np
 import src.data_prep as dp
 import src.models as m
 import src.train as train
 import src.utils as utils
 dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-
 #************************************************************
 # 					OPT FUNCTION							#
 #************************************************************
@@ -35,8 +34,8 @@ def f_opt_mnist(parameters):
     """
 	parameters = parameters[0]  # np.ndarray passed in is nested
 	print(f'---------Starting Bay opt call {f_opt_mnist.calls} with parameters: ---------')
+	utils.print_params(parameters, opt_BO)
 	# Data loading:
-	# TODO: what if no pre-processing needed?
 	train_ds, valid_ds = dp.download_mnist()
 	train_dl, valid_dl = dp.get_data(train_ds, valid_ds, int(parameters[6]))
 	train_dl, valid_dl = dp.WrappedDataLoader(train_dl, dp.preprocess), dp.WrappedDataLoader(valid_dl, dp.preprocess)
@@ -48,7 +47,7 @@ def f_opt_mnist(parameters):
 	model.to(dev)
 	# Optimizer:
 	opt = optim.SGD(model.parameters(), lr=parameters[0], momentum=parameters[1])
-	scheduler = optim.lr_scheduler.ExponentialLR(opt, gamma=0.9)
+	scheduler = optim.lr_scheduler.ExponentialLR(opt, gamma=parameters[7])
 	# Fit:
 	score, metric = train.fit(epochs, model, loss_func, scheduler, train_dl, valid_dl, train.accuracy)
 	return np.array(score)
@@ -78,8 +77,8 @@ TODO:
 """
 plot = True
 loss_func = F.nll_loss
-epochs = 2
-max_iter = 2
+epochs = 5
+max_iter = 5
 opt_func = f_opt_mnist
 cleanup_models_dir = True
 
@@ -89,7 +88,8 @@ opt_BO = [{'name': 'learning_rate', 'type': 'continuous', 'domain': (0.05, 0.25)
 		  {'name': 'num_c', 'type': 'discrete', 'domain': range(8, 22, 2)},
 		  {'name': 'num_fc', 'type': 'discrete', 'domain': range(10, 105, 5)},
 		  {'name': 'dropout', 'type': 'discrete', 'domain': np.linspace(0, 0.4, 11)},
-		  {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)}
+		  {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)},
+		  {'name': 'lr_decay', 'type': 'continuous', 'domain': (0.9, 1)}
 		  ]
 #************************************************************
 # 					RUN										#
@@ -99,7 +99,6 @@ def main():
 	utils.setup_folders()
 	if cleanup_models_dir: utils.clean_folder('models/')  # delete models from previous runs
 	# GPyOpt function call:
-	model = GPyOpt.models.GPModel(optimize_restarts=5, verbose=True)
 	optimizer = BayesianOptimization(f=opt_func,  # objective function
 					 domain=opt_BO,
 					 model_type='GP',
