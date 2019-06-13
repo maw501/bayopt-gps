@@ -7,6 +7,8 @@ import config
 import opt
 
 def main():
+	utils.setup_folders()
+	if config.cleanup_models_dir: utils.clean_folder('models/')  # delete models from previous runs
 	# GPyOpt function call:
 	optimizer = BayesianOptimization(f=config.opt_func,  # objective function
 					 domain=config.opt_BO,
@@ -24,7 +26,7 @@ def main():
 		optimizer.plot_convergence()
 	print('--------------------------------------------------')
 	print('Optimal parameters from Bay opt are:')
-	utils.print_params(optimizer.x_opt, opt_BO)
+	utils.print_params(optimizer.x_opt, config.opt_BO)
 	return optimizer
 
 if __name__ == '__main__':

@@ -20,6 +20,8 @@ class Mnist_CNN(nn.Module):
 	"""Simple CNN for MNIST data of size 28x28"""
 	def __init__(self, n_lay=2, n_c=16, n_fc=25, dropout=0.1):
 		super().__init__()
+		self.name = 'mnist_cnn'
+		self.init_args = {'n_lay':n_lay, 'n_c':n_c, 'n_fc':n_fc}  # for loading back model with correct size
 		self.h, self.w = 28, 28
 		self.out_hw = self.h - (n_lay + 1) * 4
 		self.out_c = n_c * (2 ** n_lay)

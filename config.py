@@ -33,6 +33,7 @@ loss_func = F.nll_loss
 epochs = 2
 max_iter = 2
 opt_func = opt.f_opt_mnist
+cleanup_models_dir = True
 
 opt_BO = [{'name': 'learning_rate', 'type': 'continuous', 'domain': (0.05, 0.25)},
 		  {'name': 'momentum', 'type': 'continuous', 'domain': (0.8, 0.9)},
