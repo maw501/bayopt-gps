@@ -1,8 +1,5 @@
 from torch import nn
 import torch.nn.functional as F
-from torch import optim
-from torch.utils.data import TensorDataset
-from torch.utils.data import DataLoader
 
 class ConvBnRelu(nn.Module):
 	"""Re-usable building block implementing 2d conv layer with batch-norm and relu activation"""

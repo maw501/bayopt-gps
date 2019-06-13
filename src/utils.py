@@ -1,4 +1,4 @@
-import os, shutil
+import os
 
 def print_params(p, opt_BO):
 	bo_names = [d['name'] for d in opt_BO]

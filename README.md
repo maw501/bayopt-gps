@@ -1,11 +1,5 @@
 <h1 align="center">bayopt-gps</h1>
 
-<!--NPM version
-<div align="center">
-  :steam_locomotive::train::train::train::train::train:
-</div>
--->
-
 <div align="left">
 
   <!--Python version -->
@@ -52,5 +46,3 @@ git clone https://github.com/maw501/bayopt-gps.git
 cd bayopt-gps
 python3 mnist_example.py
 ```
-
-Parameter settings are controlled in config.py
