@@ -40,7 +40,7 @@ def get_data(train_ds, valid_ds, bs):
 def preprocess(x, y):
 	return x.view(-1, 1, MNIST_H, MNIST_W).to(dev), y.to(dev)
 
-class WrappedDataLoader:
+class WrapDL:
 	"""Generator applying pre-processing function to a mini-batch as it is yielded"""
 	def __init__(self, dl, func):
 		self.dl = dl

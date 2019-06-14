@@ -3,9 +3,9 @@ import os
 def print_params(p, bds):
 	s = ""
 	for p, b in zip(p, bds):
-		tmp = f"| {b['name']}: {p:.4f} "
+		tmp = f"| {b['name']}: {p:.2f} "
 		s += tmp
-	print(s + '|')
+	print(s + '|' + '\n')
 
 def call_counter(func):
 	"""Call counter decorator"""
@@ -17,7 +17,6 @@ def call_counter(func):
 	helper.calls = 0
 	helper.__name__ = func.__name__
 	return helper
-
 
 def setup_folders():
 	if not os.path.exists('models/'):

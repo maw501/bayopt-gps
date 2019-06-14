@@ -38,7 +38,7 @@ def f_opt_mnist(parameters):
 	# Data loading:
 	train_ds, valid_ds = dp.download_mnist()
 	train_dl, valid_dl = dp.get_data(train_ds, valid_ds, int(parameters[6]))
-	train_dl, valid_dl = dp.WrappedDataLoader(train_dl, dp.preprocess), dp.WrappedDataLoader(valid_dl, dp.preprocess)
+	train_dl, valid_dl = dp.WrapDL(train_dl, dp.preprocess), dp.WrapDL(valid_dl, dp.preprocess)
 	# Model definition:
 	model = m.Mnist_CNN(n_lay=int(parameters[2]),
 						n_c=int(parameters[3]),
@@ -82,8 +82,8 @@ max_iter = 5
 opt_func = f_opt_mnist
 cleanup_models_dir = True
 
-opt_BO = [{'name': 'learning_rate', 'type': 'continuous', 'domain': (0.05, 0.25)},
-		  {'name': 'momentum', 'type': 'continuous', 'domain': (0.8, 0.9)},
+opt_BO = [{'name': 'lr', 'type': 'continuous', 'domain': (0.05, 0.25)},
+		  {'name': 'mom', 'type': 'continuous', 'domain': (0.8, 0.9)},
 		  {'name': 'num_lay', 'type': 'discrete', 'domain': range(1, 4)},
 		  {'name': 'num_c', 'type': 'discrete', 'domain': range(8, 22, 2)},
 		  {'name': 'num_fc', 'type': 'discrete', 'domain': range(10, 105, 5)},

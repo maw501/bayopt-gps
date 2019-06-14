@@ -15,7 +15,7 @@ def accuracy(model, xb, yb):
 	preds = torch.argmax(model(xb), dim=1)
 	return (preds == yb).float().mean()
 
-def fit(epochs, model, loss_func, sched, train_dl, valid_dl, metric_func=None):
+def fit(epochs, model, loss_func, sched, train_dl, valid_dl, metric_func=None, save_m=False):
 	"""Function computing validation loss and a single metric to monitor"""
 	for epoch in range(epochs):
 		model.train()
@@ -32,12 +32,12 @@ def fit(epochs, model, loss_func, sched, train_dl, valid_dl, metric_func=None):
 		val_loss = np.sum(np.multiply(losses, nums)) / np.sum(nums)  # average mini-batches (may be different size)
 		if metric_func is not None:
 			val_metric = np.sum(np.multiply(metric, nums)) / np.sum(nums)
-			print(f'epoch: {epoch}, val loss: {val_loss:.4f}, val acc: {val_metric:.4f}')
+			print(f'epoch: {epoch+1}, val loss: {val_loss:.4f}, val acc: {val_metric:.4f}')
 		else:
-			print(f'epoch: {epoch}, val loss: {val_loss:.4f}')
+			print(f'epoch: {epoch+1}, val loss: {val_loss:.4f}')
 		sched.step()
 	# Model saving - for inference only atm:
-	save(model, f'{model.name}_val_loss_{val_loss:.4f}.pth')
+	if save_m: save(model, f'{model.name}_val_loss_{val_loss:.4f}.pth')
 	return val_loss, val_metric
 
 def save(model, filename):
