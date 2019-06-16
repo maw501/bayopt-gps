@@ -1,4 +1,19 @@
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='BO using GPyOpt example')
+parser.add_argument('-e',
+					'--epochs',
+					type=int,
+					default=2,
+					help='number of epochs for each opt (default: 2)'
+					)
+parser.add_argument('-m',
+					'--max_iter',
+					type=int,
+					default=4,
+					help='number of iterations for BO (default: 4)'
+					)
 
 def print_params(p, bds):
 	s = ""
@@ -18,11 +33,10 @@ def call_counter(func):
 	helper.__name__ = func.__name__
 	return helper
 
-def setup_folders():
-	if not os.path.exists('models/'):
-		os.mkdir('models/')
-		print(f'Directory: models/ created')
-
+def setup_folders(f='models/'):
+	if not os.path.exists(f):
+		os.mkdir(f)
+		print(f'Directory: {f} created')
 
 def clean_folder(folder):
 	print(f'Deleting models from: {folder}')

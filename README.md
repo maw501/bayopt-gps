@@ -53,4 +53,4 @@ python3 mnist_example.py
 ```
 
 ## Notebooks
-1. [Introduction: using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb) - an introductory notebook walking through the `mnist_example.py` in a little more detail.
+1. [Introduction: using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb) - an introductory notebook walking through `mnist_example.py` in a little more detail.

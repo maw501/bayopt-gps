@@ -5,12 +5,18 @@ import pickle
 import torch
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
+import torchvision.transforms as transforms
 
 MNIST_H, MNIST_W = 28, 28
 dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
-def download_mnist():
-	DATA_PATH = Path("data")
+# torchvision datasets are PILImage images of range [0, 1] => transform to Tensors of normalized range [-1, 1]
+pytorch_transform = transforms.Compose(
+					[transforms.ToTensor(),
+					 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+def download_mnist(folder='data'):
+	DATA_PATH = Path(folder)
 	PATH = DATA_PATH / "mnist"
 	PATH.mkdir(parents=True, exist_ok=True)
 	URL = "http://deeplearning.net/data/mnist/"
@@ -37,8 +43,9 @@ def get_data(train_ds, valid_ds, bs):
 			DataLoader(valid_ds, batch_size=bs * 2),
 			)
 
-def preprocess(x, y):
-	return x.view(-1, 1, MNIST_H, MNIST_W).to(dev), y.to(dev)
+def preprocess(x, y): return x.view(-1, 1, MNIST_H, MNIST_W).to(dev), y.to(dev)
+
+def to_gpu(x, y): return x.to(dev), y.to(dev)
 
 class WrapDL:
 	"""Generator applying pre-processing function to a mini-batch as it is yielded"""
