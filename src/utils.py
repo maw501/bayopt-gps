@@ -5,8 +5,8 @@ parser = argparse.ArgumentParser(description='BO using GPyOpt example')
 parser.add_argument('-e',
 					'--epochs',
 					type=int,
-					default=2,
-					help='number of epochs for each opt (default: 2)'
+					default=5,
+					help='number of epochs for each opt (default: 5)'
 					)
 parser.add_argument('-m',
 					'--max_iter',

@@ -11,9 +11,22 @@ MNIST_H, MNIST_W = 28, 28
 dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 # torchvision datasets are PILImage images of range [0, 1] => transform to Tensors of normalized range [-1, 1]
-pytorch_transform = transforms.Compose(
+mnist_transform = transforms.Compose(
 					[transforms.ToTensor(),
-					 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+					 transforms.Normalize((0.1307,), (0.3081,))
+					 ])
+
+cifar_transform = transforms.Compose(
+					[transforms.ToTensor(),
+					 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+					 ])
+
+cifar_augs = transforms.Compose([
+					transforms.RandomHorizontalFlip(p=0.5),
+					# transforms.RandomVerticalFlip(p=0.5),
+					transforms.ToTensor(),
+					transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+					])
 
 def download_mnist(folder='data'):
 	DATA_PATH = Path(folder)
@@ -35,7 +48,6 @@ def download_mnist(folder='data'):
 
 	train_ds = TensorDataset(x_train, y_train)
 	valid_ds = TensorDataset(x_valid, y_valid)
-
 	return train_ds, valid_ds
 
 def get_data(train_ds, valid_ds, bs):

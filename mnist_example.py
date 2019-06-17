@@ -35,9 +35,9 @@ def f_opt_mnist(parameters):
 	print(f'---------Starting Bay opt call {f_opt_mnist.calls} with parameters: ---------')
 	utils.print_params(parameters, opt_BO)
 	# Data loading:
-	trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=dp.pytorch_transform)
+	trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=dp.mnist_transform)
 	trainloader = torch.utils.data.DataLoader(trainset, batch_size=int(parameters[6]), shuffle=True, num_workers=8)
-	testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=dp.pytorch_transform)
+	testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=dp.mnist_transform)
 	testloader = torch.utils.data.DataLoader(testset, batch_size=int(parameters[6]), shuffle=False, num_workers=8)
 	train_dl, valid_dl = dp.WrapDL(trainloader, dp.to_gpu), dp.WrapDL(testloader, dp.to_gpu)
 
@@ -49,7 +49,7 @@ def f_opt_mnist(parameters):
 	model.to(dev)
 	# Optimizer:
 	opt = optim.SGD(model.parameters(), lr=parameters[0], momentum=parameters[1])
-	scheduler = optim.lr_scheduler.ExponentialLR(opt, gamma=parameters[7])
+	scheduler = optim.lr_scheduler.CyclicLR(opt, parameters[0], parameters[0]*5)
 	# Fit:
 	score = train.fit(epochs, model, loss_func, scheduler, train_dl, valid_dl, train.accuracy, model_folder)
 	return np.array(score)
