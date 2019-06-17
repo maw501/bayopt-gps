@@ -35,7 +35,7 @@ def call_counter(func):
 
 def setup_folders(f='models/'):
 	if not os.path.exists(f):
-		os.mkdir(f)
+		os.makedirs(f)
 		print(f'Directory: {f} created')
 
 def clean_folder(folder):
