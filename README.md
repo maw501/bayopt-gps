@@ -1,7 +1,6 @@
 <h2 align="center">Bayesian optimization of NNs using GPyOpt and PyTorch</h2>
 
 <div align="center">
-
   <!--Python version -->
   <a href="https://www.python.org/downloads/release/python-360/">
     <img src="https://img.shields.io/pypi/pyversions/fastai.svg"
@@ -17,7 +16,6 @@
     <img src="https://img.shields.io/github/last-commit/maw501/bayopt-gps.svg"
       alt="Status version" />
   </a>
-
 </div>
 <br />
 
@@ -31,7 +29,7 @@ A simple but practical example of how to use Bayesian optimization with Gaussian
 The main dependencies are:
 * Gpy=1.9.6
 * GPyOpt=1.2.5
-* PyTorch>=1.0.1
+* PyTorch>=1.1
 
 The Gpy and GPyOpt packages can be directly installed via conda:
 

@@ -49,7 +49,8 @@ def f_opt_mnist(parameters):
 	model.to(dev)
 	# Optimizer:
 	opt = optim.SGD(model.parameters(), lr=parameters[0], momentum=parameters[1])
-	scheduler = optim.lr_scheduler.CyclicLR(opt, parameters[0], parameters[0]*5)
+	scheduler = optim.lr_scheduler.CyclicLR(opt, parameters[0], parameters[0]*3,
+											step_size_up=int(len(train_dl)*int(parameters[6])*epochs*0.25))
 	# Fit:
 	score = train.fit(epochs, model, loss_func, scheduler, train_dl, valid_dl, train.accuracy, model_folder)
 	return np.array(score)
@@ -84,13 +85,12 @@ cleanup_models_dir = True
 model_folder = 'models/mnist/'
 
 opt_BO = [{'name': 'lr', 'type': 'continuous', 'domain': (0.05, 0.25)},
-		  {'name': 'mom', 'type': 'continuous', 'domain': (0.8, 0.9)},
+		  {'name': 'mom', 'type': 'continuous', 'domain': (0.8, 0.92)},
 		  {'name': 'num_lay', 'type': 'discrete', 'domain': range(1, 4)},
 		  {'name': 'num_c', 'type': 'discrete', 'domain': range(8, 22, 2)},
 		  {'name': 'num_fc', 'type': 'discrete', 'domain': range(10, 105, 5)},
 		  {'name': 'dropout', 'type': 'discrete', 'domain': np.linspace(0, 0.4, 11)},
 		  {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)},
-		  {'name': 'lr_decay', 'type': 'continuous', 'domain': (0.9, 1)}
 		  ]
 #************************************************************
 # 					RUN										#
