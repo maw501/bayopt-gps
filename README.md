@@ -27,8 +27,8 @@ A simple but practical example of how to use Bayesian optimization with Gaussian
 ### Requirements
 
 The main dependencies are:
-* Gpy=1.9.6
-* GPyOpt=1.2.5
+* Gpy==1.9.6
+* GPyOpt==1.2.5
 * PyTorch>=1.1
 
 The Gpy and GPyOpt packages can be directly installed via conda:
