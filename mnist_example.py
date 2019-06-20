@@ -11,9 +11,8 @@ import src.models as m
 import src.train as train
 import src.utils as utils
 dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-#************************************************************
-# 					OPT FUNCTION                            #
-#************************************************************
+
+# OPT FUNCTION
 @utils.call_counter
 def f_opt_mnist(parameters):
     """The below example fits a CNN of varying capacity and tunes some key hyperparameters
@@ -30,6 +29,7 @@ def f_opt_mnist(parameters):
     Note:
         GPyOpt passes the parameters variable as a nested np.ndarray, access with: parameters = parameters[0]
         Parameters are in the same order as defined in config.py"""
+
     parameters = parameters[0]  # np.ndarray passed in is nested
     print(f'---------Starting Bay opt call {f_opt_mnist.calls} with parameters: ---------')
     utils.print_params(parameters, opt_BO)
@@ -55,9 +55,7 @@ def f_opt_mnist(parameters):
     score = train.fit(epochs, model, loss_func, scheduler, train_dl, valid_dl, train.accuracy, model_folder)
     return np.array(score)
 
-#************************************************************
-# 					CONFIGS                                 #
-#************************************************************
+# CONFIGS
 """
 Parameter settings for a single run.
 
@@ -77,6 +75,7 @@ Note:
 
 TODO:
     * Add ability to change BO parameters and kernels"""
+
 plot = True
 loss_func = F.cross_entropy
 opt_func = f_opt_mnist
@@ -91,9 +90,8 @@ opt_BO = [{'name': 'lr', 'type': 'continuous', 'domain': (0.05, 0.25)},
             {'name': 'dropout', 'type': 'discrete', 'domain': np.linspace(0, 0.4, 11)},
             {'name': 'bs', 'type': 'discrete', 'domain': range(64, 288, 32)},
           ]
-#************************************************************
-# 					RUN                                     #
-#************************************************************
+
+# RUN
 def main():
     utils.setup_folders(model_folder)
     if cleanup_models_dir: utils.clean_folder(model_folder)  # delete models from previous runs
