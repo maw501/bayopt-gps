@@ -1,5 +1,5 @@
-import os
 import argparse
+import os
 
 parser = argparse.ArgumentParser(description="BO using GPyOpt example")
 parser.add_argument(

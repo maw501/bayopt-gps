@@ -1,5 +1,6 @@
-import torch
 import numpy as np
+
+import torch
 
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
@@ -13,7 +14,8 @@ def loss_batch(model, loss_func, xb, yb, opt=None):
 
 
 def sched_batch(model, loss_func, xb, yb, sched=None):
-    """Basic function computing the loss per mini-batch and stepping the scheduler per mini-batch"""
+    """Basic function computing the loss per mini-batch and stepping the
+    scheduler per mini-batch"""
     loss = loss_func(model(xb), yb)
     if sched is not None:
         loss.backward()
@@ -60,11 +62,11 @@ def fit(
         if metric_func is not None:
             val_metric = np.sum(np.multiply(metric, nums)) / np.sum(nums)
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}"
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}" # noqa
             )
         else:
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}"
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}" # noqa
             )
     # Model saving - for inference only atm:
     if save_folder is not None:
@@ -74,7 +76,6 @@ def fit(
 
 def save(model, save_folder, filename):
     """Save model for inference only
-    https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference
     """
     torch.save(
         {

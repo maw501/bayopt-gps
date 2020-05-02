@@ -1,18 +1,20 @@
-from pathlib import Path
-import requests
 import gzip
 import pickle
+from pathlib import Path
+
+import requests
+
 import torch
-from torch.utils.data import TensorDataset
-from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
+from torch.utils.data import DataLoader, TensorDataset
 
 MNIST_H, MNIST_W = 28, 28
 dev = (
     torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 )
 
-# torchvision datasets are PILImage images of range [0, 1] => transform to Tensors of normalized range [-1, 1]
+# torchvision datasets are PILImage images of range [0, 1] => transform to
+# Tensors of normalized range [-1, 1]
 mnist_transform = transforms.Compose(
     [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
 )
@@ -75,7 +77,7 @@ def to_gpu(x, y):
 
 
 class WrapDL:
-    """Generator applying pre-processing function to a mini-batch as it is yielded"""
+    """Generator applying pre-processing function to a batch as it's yielded"""
 
     def __init__(self, dl, func):
         self.dl = dl

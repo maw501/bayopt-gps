@@ -1,10 +1,11 @@
+import torch.nn.functional as F
 from torch import nn
 from torchvision import models
-import torch.nn.functional as F
 
 
 class ConvBnRelu(nn.Module):
-    """Re-usable building block implementing 2d conv layer with batch-norm and relu activation"""
+    """Re-usable building block implementing 2d conv layer with batch-norm and
+    relu activation"""
 
     def __init__(self, in_channels, out_channels, p):
         super().__init__()

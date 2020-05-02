@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
-from pylab import grid
 import numpy as np
+from pylab import grid
 
 
 def plot_convergence(Xdata, best_Y):
-    """Plots to evaluate the convergence of standard Bayesian optimization algorithms
-    Changed from: https://github.com/SheffieldML/GPyOpt/blob/master/GPyOpt/plotting/plots_bo.py
+    """Plots to evaluate the convergence of standard Bayesian optimization
+    algorithms.
+
+    Changed from:
+    https://github.com/SheffieldML/GPyOpt/blob/master/GPyOpt/plotting/plots_bo.py
     """
     n = Xdata.shape[0]
     aux = (Xdata[1:n, :] - Xdata[0 : n - 1, :]) ** 2

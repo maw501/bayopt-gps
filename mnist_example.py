@@ -1,15 +1,14 @@
-from GPyOpt.methods import BayesianOptimization
-import GPyOpt
-import torch
-import torch.nn.functional as F
-import torch.nn as nn
-from torch import optim
-import torchvision
 import numpy as np
+
 import src.data_prep as dp
 import src.models as m
 import src.train as train
 import src.utils as utils
+import torch
+import torch.nn.functional as F
+import torchvision
+from GPyOpt.methods import BayesianOptimization
+from torch import optim
 
 dev = (
     torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -18,24 +17,28 @@ dev = (
 # OPT FUNCTION
 @utils.call_counter
 def f_opt_mnist(parameters):
-    """The below example fits a CNN of varying capacity and tunes some key hyperparameters
+    """The below example fits a CNN of varying capacity and tunes some key
+    hyperparameters
 
-    This function contains the user implementation of functions to be optimized by GPyOpt. Functions must accept
-    parameters passed via GPyOpt and return a single number which is being optimized. The function complexity
-    depends largely on which hyperparameters are to be optimized.
+    This function contains the user implementation of functions to be optimized
+    by GPyOpt. Functions must accept parameters passed via GPyOpt and return a
+    single number which is being optimized. The function complexity depends
+    largely on which hyperparameters are to be optimized.
 
-    Once the functioned to be optimized is defined update the parameters in `opt_func` below
+    Once the functioned to be optimized is defined update the parameters in
+    `opt_func` below.
 
     Example:
         f_opt_mnist: implements a CNN on MNIST data
 
     Note:
-        GPyOpt passes the parameters variable as a nested np.ndarray, access with: parameters = parameters[0]
+        GPyOpt passes the parameters variable as a nested np.ndarray, access
+        with: parameters = parameters[0]
         Parameters are in the same order as defined in config.py"""
 
     parameters = parameters[0]  # np.ndarray passed in is nested
     print(
-        f"---------Starting Bay opt call {f_opt_mnist.calls} with parameters: ---------"
+        f"---------Starting Bay opt call {f_opt_mnist.calls} with parameters: ---------" # noqa
     )
     utils.print_params(parameters, opt_BO)
     # Data loading:
@@ -92,19 +95,21 @@ def f_opt_mnist(parameters):
 """
 Parameter settings for a single run.
 
-Once the functioned to be optimized is defined above update the reference for `opt_func` below.
+Once the functioned to be optimized is defined above update the reference for
+`opt_func` below.
 
 Attributes:
     plot (bool): whether to show convergence plots after BO has run
     loss_func: NN loss function
     epochs: how many epochs to fit each optimization for
-    max_iter: how many iterations of the BO to run - note 5 initial runs are conducted on top of max_iter
+    max_iter: how many iterations of the BO to run - note 5 initial runs are
+        conducted on top of max_iter
     opt_func: the function to be optimized, defined in opt.py
     opt_BO: list of dicts for GPyOpt
-    	Example: https://nbviewer.jupyter.org/github/SheffieldML/GPyOpt/blob/devel/manual/GPyOpt_mixed_domain.ipynb
+        Example: https://nbviewer.jupyter.org/github/SheffieldML/GPyOpt/blob/devel/manual/GPyOpt_mixed_domain.ipynb
 
 Note:
-	Parameters are passed in the same order as defined in opt_BO
+    Parameters are passed in the same order as defined in opt_BO
 
 TODO:
     * Add ability to change BO parameters and kernels"""
@@ -125,7 +130,7 @@ opt_BO = [
     {"name": "bs", "type": "discrete", "domain": range(64, 288, 32)},
 ]
 
-# RUN
+
 def main():
     utils.setup_folders(model_folder)
     if cleanup_models_dir:
@@ -138,7 +143,7 @@ def main():
         model_type="GP",
         acquisition_type="EI",
         normalize_Y=True,
-        acquisition_jitter=0.05,  # positive value to make acquisition more explorative
+        acquisition_jitter=0.05,  # +ve val makes acquisition more explorative
         exact_feval=False,  # whether the outputs are exact
         maximize=False,
     )
@@ -147,7 +152,8 @@ def main():
     )  # 5 initial exploratory points + max_iter
     # Post-run printing and plotting:
     if plot:
-        optimizer.plot_acquisition()  # plots y normalized (i.e. deviates) only in 1d or 2d
+        # plots y normalized (i.e. deviates) only in 1d or 2d
+        optimizer.plot_acquisition()
         optimizer.plot_convergence()
     print("--------------------------------------------------")
     print("Optimal parameters from Bay opt are:")
