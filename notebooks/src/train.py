@@ -2,6 +2,8 @@ import numpy as np
 
 import torch
 
+import time
+
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
     """Basic function computing the loss per mini-batch"""
@@ -43,6 +45,7 @@ def fit(
 ):
     """Function computing validation loss and a single metric to monitor"""
     for e in range(epochs):
+        t0 = time.time()
         model.train()
         t_loss = 0
         for i, (xb, yb) in enumerate(train_dl):
@@ -59,14 +62,15 @@ def fit(
         val_loss = np.sum(np.multiply(losses, nums)) / np.sum(
             nums
         )  # average mini-batches (may be different size)
+        time_taken = time.time() - t0
         if metric_func is not None:
             val_metric = np.sum(np.multiply(metric, nums)) / np.sum(nums)
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}" # noqa
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}, in: {time_taken:.0f} secs" # noqa
             )
         else:
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}" # noqa
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, in: {time_taken:.0f} secs" # noqa
             )
     # Model saving - for inference only atm:
     if save_folder is not None:

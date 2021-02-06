@@ -2,14 +2,9 @@
 
 <div align="center">
   <!--Python version -->
-  <a href="https://www.python.org/downloads/release/python-360/">
-    <img src="https://img.shields.io/pypi/pyversions/fastai.svg"
+  <a href="https://www.python.org/downloads/release/python-380/">
+    <img src="https://img.shields.io/badge/python-3.8-blue.svg"
       alt="Python version" />
-  </a>
-  <!--Project status -->
-  <a href="https://github.com/maw501/bayopt-gps">
-    <img src="https://img.shields.io/badge/Status-Under%20development-green.svg"
-      alt="Status version" />
   </a>
   <!--Commits  -->
   <a href="https://github.com/maw501/bayopt-gps/commits/master">
@@ -24,31 +19,23 @@
 A simple but practical example of how to use Bayesian optimization with Gaussian processes to tune a neural network using PyTorch and GPyOpt.
 
 ## Getting started
-### Requirements
 
-The main dependencies are:
-* `Gpy==1.9.6`
-* `GPyOpt==1.2.5`
-* `PyTorch==1.1`
-
-The Gpy and GPyOpt packages can be directly installed via conda:
+Clone the repository then create the conda environment:
 
 ```
-conda install -c conda-forge gpy
-conda install -c kgullikson gpyopt
-```
-
-PyTorch can also be installed via conda though if you don't have it installed already it's worth referring to their [getting started](https://pytorch.org/get-started/locally/) instructions.
-
-### Running the example
-
-Then clone the repo and run the example which will automatically download the MNIST dataset.
-
-```
-git clone https://github.com/maw501/bayopt-gps.git
+git clone git@github.com:maw501/bayopt-gps.git
 cd bayopt-gps
-python3 mnist_example.py
+conda env create -f environment.yml
 ```
 
-## Notebooks
-1. [Introduction: using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb) - an introductory notebook walking through `mnist_example.py` in a little more detail.
+In order to use the conda environment in a notebook run:
+
+```
+python -m ipykernel install --user --name=bayopt
+```
+
+The version of [torch](https://pytorch.org/) installed is CPU only and training takes ~1-2 minutes per epoch on 4 cores depending on the parameters chosen by the Bayesian optimization.
+
+## Example notebook
+
+There is currently an notebook which walks through the training process and shows how to set-up the objective function: [Using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb).

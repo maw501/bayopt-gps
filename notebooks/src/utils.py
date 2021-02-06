@@ -1,21 +1,4 @@
-import argparse
 import os
-
-parser = argparse.ArgumentParser(description="BO using GPyOpt example")
-parser.add_argument(
-    "-e",
-    "--epochs",
-    type=int,
-    default=5,
-    help="number of epochs for each opt (default: 5)",
-)
-parser.add_argument(
-    "-m",
-    "--max_iter",
-    type=int,
-    default=4,
-    help="number of iterations for BO (default: 4)",
-)
 
 
 def print_params(p, bds):
