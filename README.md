@@ -34,8 +34,12 @@ In order to use the conda environment in a notebook run:
 python -m ipykernel install --user --name=bayopt
 ```
 
-The version of [torch](https://pytorch.org/) installed is CPU only and training takes ~1-2 minutes per epoch on 4 cores depending on the parameters chosen by the Bayesian optimization.
+The version of [torch](https://pytorch.org/) installed is CPU only and training takes a few minutes per epoch on 4 cores depending on the parameters chosen by the Bayesian optimization.
+
+## Data
+
+The data will be automatically downloaded when training is run for the first time and stored in a `data` directory under the root of the repository.
 
 ## Example notebook
 
-There is currently an notebook which walks through the training process and shows how to set-up the objective function: [Using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb).
+There is currently a notebook which walks through the training process and shows how to set-up the objective function: [Using GPyOpt to tune a CNN on MNIST](https://nbviewer.jupyter.org/github/maw501/bayopt-gps/blob/master/notebooks/Using_GPyOpt_to_tune_NN.ipynb).

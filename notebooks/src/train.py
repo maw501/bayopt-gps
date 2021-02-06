@@ -1,8 +1,7 @@
-import numpy as np
-
-import torch
-
 import time
+
+import numpy as np
+import torch
 
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
@@ -66,11 +65,11 @@ def fit(
         if metric_func is not None:
             val_metric = np.sum(np.multiply(metric, nums)) / np.sum(nums)
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}, in: {time_taken:.0f} secs" # noqa
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, val met: {val_metric:.4f}, in: {time_taken:.0f} secs"  # noqa
             )
         else:
             print(
-                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, in: {time_taken:.0f} secs" # noqa
+                f"e: {e+1}, trn loss: {(t_loss/((i+1))):.4f}, val loss: {val_loss:.4f}, in: {time_taken:.0f} secs"  # noqa
             )
     # Model saving - for inference only atm:
     if save_folder is not None:
@@ -79,8 +78,7 @@ def fit(
 
 
 def save(model, save_folder, filename):
-    """Save model for inference only
-    """
+    """Save model for inference only"""
     torch.save(
         {
             "name": model.name,

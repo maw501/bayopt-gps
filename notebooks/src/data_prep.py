@@ -3,7 +3,6 @@ import pickle
 from pathlib import Path
 
 import requests
-
 import torch
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, TensorDataset
